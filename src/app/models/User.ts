@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs";
 interface UserAttributes {
   name: string;
   email: string;
-  password_hash: string;
+  password_hash?: string;
   password: string;
   image: string;
 }
@@ -78,6 +78,10 @@ class User extends Model<UserAttributes> {
         user.password_hash = await bcryptjs.hash(user.password, 8);
       }
     });
+  }
+
+  passwordIsValid(password: string) {
+    return bcryptjs.compare(password, this.password_hash);
   }
 }
 
