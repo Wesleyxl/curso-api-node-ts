@@ -1,0 +1,11 @@
+{
+  "username": "root",
+  "password": "",
+  "database": "api_typescript",
+  "host": "127.0.0.1",
+  "dialect": "mysql",
+  "define": {
+    "timestamps": true,
+    "underscored": true
+  }
+}
