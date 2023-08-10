@@ -2,8 +2,10 @@ import { Router } from "express";
 
 // Import the necessary controller and middleware
 import UserController from "../app/controllers/UserController";
-import AuthMiddleware from "../app/middleware/Auth"; // Import the middleware
 import AuthController from "../app/controllers/AuthController";
+
+//middleware
+import AuthMiddleware from "../app/middleware/Auth";
 
 const routes = Router();
 
@@ -14,8 +16,9 @@ routes.get("/test", (req, res) => {
   });
 });
 
-// Use the AuthMiddleware function as middleware for authentication
 routes.post("/auth/login", AuthController.login);
+routes.post("/auth/register", AuthController.register);
+routes.get("/auth/me", AuthMiddleware, AuthController.me);
 
 routes.get("/users", AuthMiddleware, UserController.index);
 routes.post("/users", UserController.store);
