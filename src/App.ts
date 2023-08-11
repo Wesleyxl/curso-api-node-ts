@@ -1,8 +1,12 @@
+import { resolve } from "path";
 import express from "express";
+import dotenv from "dotenv";
 import cors from "cors";
 
 import sequelize from "./database";
 import routes from "./routes";
+
+dotenv.config();
 
 class App {
   public express: express.Express;
@@ -18,6 +22,7 @@ class App {
   private middleware() {
     this.express.use(express.json());
     this.express.use(cors());
+    this.express.use(express.static(resolve(__dirname, "..", "uploads")));
   }
 
   private database() {

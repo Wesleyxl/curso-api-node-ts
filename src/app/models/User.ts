@@ -1,12 +1,15 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 import bcryptjs from "bcryptjs";
 
+import appConfig from "../../config/app";
+
 interface UserAttributes {
   name: string;
   email: string;
   password_hash?: string;
   password: string;
   image: string;
+  url: string;
 }
 
 class User extends Model<UserAttributes> {
@@ -15,6 +18,7 @@ class User extends Model<UserAttributes> {
   public password_hash!: string;
   public password!: string;
   public image!: string;
+  public url!: string;
 
   /**
    * A middleware function that sets up the necessary middleware for the express app.
@@ -66,6 +70,14 @@ class User extends Model<UserAttributes> {
         image: {
           type: DataTypes.STRING,
           defaultValue: "",
+        },
+        url: {
+          type: DataTypes.VIRTUAL,
+          get() {
+            return `${appConfig.url}:${
+              appConfig.port
+            }/images/${this.getDataValue("image")}`;
+          },
         },
       },
       {

@@ -5,7 +5,7 @@ import UserController from "../app/controllers/UserController";
 import AuthController from "../app/controllers/AuthController";
 
 //middleware
-import AuthMiddleware from "../app/middleware/Auth";
+import Auth from "../app/middleware/Auth";
 
 const routes = Router();
 
@@ -18,9 +18,10 @@ routes.get("/test", (req, res) => {
 
 routes.post("/auth/login", AuthController.login);
 routes.post("/auth/register", AuthController.register);
-routes.get("/auth/me", AuthMiddleware, AuthController.me);
+routes.get("/auth/me", Auth, AuthController.me);
 
-routes.get("/users", AuthMiddleware, UserController.index);
+routes.get("/users", Auth, UserController.index);
 routes.post("/users", UserController.store);
-
+routes.put("/users", Auth, UserController.update);
+routes.put("/users/image", Auth, UserController.updateImage);
 export default routes;
