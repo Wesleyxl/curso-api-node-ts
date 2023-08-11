@@ -78,7 +78,13 @@ class AuthController {
         });
       }
 
-      const user = await User.create({ name, email, password, image: "" });
+      const user = await User.create({
+        name,
+        email,
+        password,
+        image: "",
+        url: "",
+      });
 
       if (!user) {
         return res.status(400).json({

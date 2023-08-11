@@ -21,7 +21,7 @@ routes.post("/auth/register", AuthController.register);
 routes.get("/auth/me", Auth, AuthController.me);
 
 routes.get("/users", Auth, UserController.index);
-routes.post("/users", UserController.store);
+routes.post("/users", Auth, UserController.store);
 routes.put("/users", Auth, UserController.update);
 routes.put("/users/image", Auth, UserController.updateImage);
 export default routes;

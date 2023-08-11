@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import multer, { FileFilterCallback, MulterError } from "multer";
+import multer, { MulterError } from "multer";
 import multerConfig from "../../config/multer";
 
 import User from "../models/User";
@@ -67,6 +67,13 @@ class UserController {
     }
   }
 
+  /**
+   * Updates a user based on the provided request data.
+   *
+   * @param {Request} req - The request object containing the data to update the user.
+   * @param {Response} res - The response object to send back the updated user or error message.
+   * @return {Promise<void>} - A promise that resolves when the user is successfully updated or rejects with an error.
+   */
   async update(req: Request, res: Response) {
     try {
       const user = await User.update(req.body, {
@@ -95,13 +102,21 @@ class UserController {
     }
   }
 
+  /**
+   * Update an image.
+   *
+   * @param {Request} req - the request object
+   * @param {Response} res - the response object
+   * @param {NextFunction} next - the next function
+   * @return {Promise<void>} - a promise that resolves to void
+   */
   async updateImage(req: Request, res: Response, next: NextFunction) {
     upload(req, res, async (error: any) => {
       try {
         if (error) {
           if (error instanceof MulterError) {
             return res.status(400).json({
-              errors: [error.code],
+              errors: [error.message],
             });
           } else {
             return res.status(500).json({

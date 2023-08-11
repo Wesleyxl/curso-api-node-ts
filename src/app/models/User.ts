@@ -73,6 +73,7 @@ class User extends Model<UserAttributes> {
         },
         url: {
           type: DataTypes.VIRTUAL,
+          defaultValue: "",
           get() {
             return `${appConfig.url}:${
               appConfig.port
