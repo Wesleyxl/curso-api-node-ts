@@ -10,6 +10,7 @@ interface UserAttributes {
   password: string;
   image: string;
   url: string;
+  id?: number;
 }
 
 class User extends Model<UserAttributes> {
@@ -19,6 +20,7 @@ class User extends Model<UserAttributes> {
   public password!: string;
   public image!: string;
   public url!: string;
+  id?: number;
 
   /**
    * A middleware function that sets up the necessary middleware for the express app.
@@ -95,6 +97,11 @@ class User extends Model<UserAttributes> {
 
   passwordIsValid(password: string) {
     return bcryptjs.compare(password, this.password_hash);
+  }
+
+  // associations
+  static associate(models: any) {
+    this.hasMany(models.Publication, { foreignKey: "user_id", as: "user" });
   }
 }
 

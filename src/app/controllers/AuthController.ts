@@ -40,7 +40,7 @@ class AuthController {
       }
 
       const token = jwt.sign(
-        { email },
+        { email: user.email, id: user.id },
         process.env.JWT_SECRET || jwtConfig.jwt_secret,
         {
           expiresIn: process.env.JWT_EXPIRE_IN || jwtConfig.jwt_expire_in,

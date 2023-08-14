@@ -5,6 +5,7 @@ import User from "../models/User";
 
 declare module "express" {
   interface Request {
+    userId?: number;
     userEmail?: string;
   }
 }
@@ -26,9 +27,11 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       process.env.JWT_SECRET || jwtConfig.jwt_secret
     ) as JwtPayload; // Type cast 'data' to JwtPayload
 
-    const { email } = data;
+    const { email, id } = data;
 
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+    });
 
     if (!user) {
       return res.status(401).json({
@@ -36,6 +39,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
+    req.userId = id;
     req.userEmail = email;
 
     return next();
