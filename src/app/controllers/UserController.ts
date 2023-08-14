@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import multer, { MulterError } from "multer";
-import multerConfig from "../../config/multer";
 
 import User from "../models/User";
 
-const upload = multer(multerConfig).single("file");
+import { multerConfigUser } from "../../config/multer";
+const upload = multer(multerConfigUser).single("file");
 
 class UserController {
   /**

@@ -108,7 +108,12 @@ class AuthController {
 
   async me(req: Request, res: Response) {
     try {
-      const user = await User.findOne({ where: { email: req.userEmail } });
+      const user = await User.findOne({
+        where: { email: req.userEmail },
+        attributes: {
+          exclude: ["password_hash", "createdAt", "updatedAt", "image"],
+        },
+      });
 
       if (!user) {
         return res.status(400).json({

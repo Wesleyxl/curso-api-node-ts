@@ -6,7 +6,7 @@ interface CommentsAttributes {
   content: string;
 }
 
-class Comment extends Model<CommentsAttributes> {
+class Comment extends Model {
   public user_id!: number;
   public publication_id!: number;
   public content!: string;
@@ -22,6 +22,13 @@ class Comment extends Model<CommentsAttributes> {
         },
         content: {
           type: DataTypes.TEXT,
+          defaultValue: "",
+          validate: {
+            len: {
+              args: [3, 255],
+              msg: "Content must be between 3 and 255 characters",
+            },
+          },
         },
       },
       { sequelize }

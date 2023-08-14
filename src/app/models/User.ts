@@ -3,17 +3,17 @@ import bcryptjs from "bcryptjs";
 
 import appConfig from "../../config/app";
 
-interface UserAttributes {
-  name: string;
-  email: string;
-  password_hash?: string;
-  password: string;
-  image: string;
-  url: string;
-  id?: number;
-}
+// interface UserAttributes {
+//   name: string;
+//   email: string;
+//   password_hash?: string;
+//   password: string;
+//   image: string;
+//   url: string;
+//   id?: number;
+// }
 
-class User extends Model<UserAttributes> {
+class User extends Model {
   public name!: string;
   public email!: string;
   public password_hash!: string;
@@ -77,9 +77,11 @@ class User extends Model<UserAttributes> {
           type: DataTypes.VIRTUAL,
           defaultValue: "",
           get() {
-            return `${appConfig.url}:${
-              appConfig.port
-            }/images/${this.getDataValue("image")}`;
+            if (this.image || this.image !== "") {
+              return `${appConfig.url}:${
+                appConfig.port
+              }/images/users/${this.getDataValue("image")}`;
+            }
           },
         },
       },

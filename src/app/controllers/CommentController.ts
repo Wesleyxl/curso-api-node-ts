@@ -39,7 +39,7 @@ class CommentController {
 
   async index(req: Request, res: Response) {
     try {
-      const comments = await Comment.create();
+      const comments = await Comment.findAll();
 
       if (!comments) {
         return res.status(400).json({
@@ -75,6 +75,41 @@ class CommentController {
       if (!comment) {
         return res.status(400).json({
           errors: ["Comment not found"],
+        });
+      }
+
+      res.json(comment);
+    } catch (e: any) {
+      if (e.errors && Array.isArray(e.errors)) {
+        const errorResponse = e.errors.map(
+          (err: { message: string; path: string }) => ({
+            title: err.path,
+            message: err.message,
+          })
+        );
+
+        return res.status(400).json({
+          errors: errorResponse,
+        });
+      }
+
+      return res.status(500).json({
+        errors: ["An unexpected error occurred"],
+      });
+    }
+  }
+
+  async update(req: Request, res: Response) {
+    try {
+      const comment = await Comment.update(req.body, {
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!comment) {
+        return res.status(400).json({
+          errors: ["Comment not updated"],
         });
       }
 

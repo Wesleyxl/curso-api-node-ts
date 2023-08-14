@@ -29,9 +29,12 @@ routes.put("/users/image", Auth, UserController.updateImage);
 
 routes.post("/publications", Auth, PublicationController.store);
 routes.get("/publications", Auth, PublicationController.index);
+routes.get("/publications/:id", Auth, PublicationController.show);
+routes.put("/publications/:id", Auth, PublicationController.update);
 
 routes.get("/comments", Auth, CommentController.index);
 routes.post("/comments", Auth, CommentController.store);
 routes.get("/comments/:id", Auth, CommentController.show);
+routes.put("/comments/:id", Auth, CommentController.update);
 
 export default routes;

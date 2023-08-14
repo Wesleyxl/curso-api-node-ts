@@ -53,7 +53,7 @@ class Publication extends Model {
             if (this.image || this.image !== "") {
               return `${appConfig.url}:${
                 appConfig.port
-              }/images/publication/${this.getDataValue("image")}`;
+              }/images/publications/${this.getDataValue("image")}`;
             }
           },
         },
