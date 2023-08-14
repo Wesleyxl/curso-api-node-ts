@@ -3,6 +3,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import jwtConfig from "../../config/jwt";
 import User from "../models/User";
 
+// Aqui, você está estendendo a interface Request
 declare module "express" {
   interface Request {
     userId?: number;

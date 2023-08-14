@@ -1,7 +1,7 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
 
 interface CommentsAttributes {
-  user_id: number;
+  user_id?: number;
   publication_id: number;
   content: string;
 }

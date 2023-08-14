@@ -3,10 +3,11 @@ import { Router } from "express";
 // Import the necessary controller and middleware
 import UserController from "../app/controllers/UserController";
 import AuthController from "../app/controllers/AuthController";
+import PublicationController from "../app/controllers/PublicationController";
+import CommentController from "../app/controllers/CommentController";
 
 //middleware
 import Auth from "../app/middleware/Auth";
-import PublicationController from "../app/controllers/PublicationController";
 
 const routes = Router();
 
@@ -28,5 +29,9 @@ routes.put("/users/image", Auth, UserController.updateImage);
 
 routes.post("/publications", Auth, PublicationController.store);
 routes.get("/publications", Auth, PublicationController.index);
+
+routes.get("/comments", Auth, CommentController.index);
+routes.post("/comments", Auth, CommentController.store);
+routes.get("/comments/:id", Auth, CommentController.show);
 
 export default routes;
